@@ -9,7 +9,7 @@ import rasterio
 import rasterio.mask
 import rasterio._base
 from rasterio.transform import Affine
-from rasterio._base import get_window
+#from rasterio._base import get_window
 
 import workflow.conf
 
@@ -84,11 +84,11 @@ def clip_dem(shp, source, feather=10, nodata=-999, precision=7):
             int_n = src_n if src_n < dst_n else dst_n
 
             # Compute the source window.
-            src_window = get_window(int_w, int_s, int_e, int_n, fin.affine, precision=precision)
+            src_window = rasterio._base.get_window(int_w, int_s, int_e, int_n, fin.affine, precision=precision)
             logging.debug("Src %s window: %r", fin.name, src_window)
 
             # Compute the destination window.
-            dst_window = get_window(int_w, int_s, int_e, int_n, dst_affine, precision=precision)
+            dst_window = rasterio._base.get_window(int_w, int_s, int_e, int_n, dst_affine, precision=precision)
             logging.debug("Dst window: %r", dst_window)
 
             # Initialize temp array.
